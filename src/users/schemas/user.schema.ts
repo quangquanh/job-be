@@ -13,12 +13,11 @@ export class User {
 
   @Prop()
   name: string;
+  @Prop()
+  age: number;
 
   @Prop()
   phone: string;
-
-  @Prop()
-  age: number;
 
   @Prop()
   address: string;
