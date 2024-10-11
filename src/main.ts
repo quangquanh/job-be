@@ -11,12 +11,23 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   app.useStaticAssets(join(__dirname, '..', 'public')); //js, css, images
   app.setBaseViewsDir(join(__dirname, '..', 'views')); //view
+
+  // set view engine
   app.setViewEngine('ejs');
 
+  // config jwt auth guard global
   const reflector = app.get(Reflector);
   // app.useGlobalGuards(new JwtAuthGuard(reflector));
 
   app.useGlobalPipes(new ValidationPipe());
+
+  // config CORS
+
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  });
 
   await app.listen(configService.get<string>('PORT'));
 }
