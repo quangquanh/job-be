@@ -27,8 +27,8 @@ export class CompaniesController {
   @Get()
   @ResponseMessage('Fetch data thành công')
   findAll(
-    @Query('page') currentPage: string = '1',
-    @Query('limit') limit: string = '10',
+    @Query('page') currentPage: string,
+    @Query('limit') limit: string,
     @Query() queryString: string,
   ) {
     return this.companiesService.findAll(+currentPage, +limit, queryString);

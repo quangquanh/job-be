@@ -35,7 +35,10 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Giới tính không được để trống' })
   address: string;
 
-  @IsNotEmpty({ message: 'Giới tính không được để trống' })
+  @IsNotEmpty({ message: 'Role không được để trống' })
+  role: string;
+
+  @IsNotEmpty({ message: 'Công ty không được để trống' })
   @IsNotEmptyObject()
   @IsObject()
   @ValidateNested()
