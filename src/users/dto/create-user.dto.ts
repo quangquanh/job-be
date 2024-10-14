@@ -62,11 +62,4 @@ export class RegisterUserDto {
 
   @IsNotEmpty({ message: 'Địa chỉ không được để trống' })
   address: string;
-
-  @IsNotEmpty({ message: 'Công ty không được để trống' })
-  @IsNotEmptyObject()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => Company)
-  company: Company;
 }
