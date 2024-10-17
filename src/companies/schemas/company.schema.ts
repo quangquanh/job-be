@@ -15,6 +15,9 @@ export class Company {
   @Prop()
   description: string;
 
+  @Prop()
+  logo: string;
+
   //   Các trường thông tin mặc định
   @Prop()
   createdAt: Date;

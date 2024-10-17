@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
-import { ResponseMessage, User } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { CreateJobDto } from './dto/create-job.dto';
 import { IUser } from 'src/users/user.interface';
 import { UpdateJobDto } from './dto/update-job.dto';
@@ -50,6 +50,7 @@ export class JobsController {
 
   @ResponseMessage('fetch a job by id')
   @Get(':id')
+  @Public()
   findOne(
     @Param('id')
     id: string,
@@ -60,6 +61,7 @@ export class JobsController {
   // fetch job with paginate
   @Get()
   @ResponseMessage('Fetch company with paginate')
+  @Public()
   findAll(
     @Query('current') currentPage: string,
     @Query('pageSize') limit: string,

@@ -23,12 +23,13 @@ export class FilesController {
 
   @ResponseMessage('upload a file')
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('fileUpload'))
   uploadFile(
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({
-          fileType: /^(image\/jpeg|image\/png|text\/plain)$/i,
+          fileType:
+            /^(image\/jpeg|image\/png|text\/plain| application\/pdf | application\/msword|application\/vnd.openxmlformats-officedocument.wordprocessingml.document|text\/html)$/i,
         })
         .addMaxSizeValidator({
           maxSize: 1024 * 1024,
@@ -39,7 +40,9 @@ export class FilesController {
     )
     file: Express.Multer.File,
   ) {
-    console.log(file);
+    return {
+      fileName: file.filename,
+    };
   }
 
   @Get()

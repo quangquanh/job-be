@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { IUser } from 'src/users/user.interface';
@@ -7,6 +7,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import aqp from 'api-query-params';
+import { error } from 'console';
 
 @Injectable()
 export class JobsService {
@@ -23,6 +24,7 @@ export class JobsService {
       quantity,
       level,
       description,
+      location,
       startDate,
       endDate,
       isActive,
@@ -36,6 +38,7 @@ export class JobsService {
       quantity,
       level,
       description,
+      location,
       startDate,
       endDate,
       isActive,
@@ -85,7 +88,9 @@ export class JobsService {
   }
 
   findOne(id: string) {
-    if (!mongoose.Types.ObjectId.isValid(id)) return `Công việc không tồn tại`;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException(`can't find this job with ${id}`);
+    }
 
     return this.jobModel.findOne({
       _id: id,

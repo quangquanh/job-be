@@ -44,6 +44,12 @@ export class CreateJobDto {
   @IsNotEmpty({ message: 'Mô tả không được để trống' })
   description: string;
 
+  @IsNotEmpty({ message: 'Địa điểm không được để trống' })
+  location: string;
+
+  @IsNotEmpty({ message: 'logo không được để trống' })
+  logo: string;
+
   @IsNotEmpty({ message: 'Ngày bắt đầu không được để trống' })
   startDate: string;
 
