@@ -31,8 +31,8 @@ export class CompaniesService {
   async findAll(currentPage: number, limit: number, queryString: string) {
     const { filter, skip, sort, projection, population } = aqp(queryString);
 
-    delete filter.page;
-    delete filter.limit;
+    delete filter.current;
+    delete filter.pageSize;
 
     const offset = (+currentPage - 1) * +limit;
     const defaultLimit = +limit ? +limit : 10;
@@ -56,8 +56,13 @@ export class CompaniesService {
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  // chưa làm @@ , quên
+  findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) return `Công ty không tồn tại`;
+
+    return this.companyModel.findOne({
+      _id: id,
+    });
   }
 
   async update(id: string, updateCompanyDto: UpdateCompanyDto, user: IUser) {

@@ -25,18 +25,22 @@ export class CompaniesController {
   }
 
   @Get()
-  @ResponseMessage('Fetch data thành công')
+  @ResponseMessage('Fetch company with paginate')
   findAll(
-    @Query('page') currentPage: string,
-    @Query('limit') limit: string,
+    @Query('current') currentPage: string,
+    @Query('pageSize') limit: string,
     @Query() queryString: string,
   ) {
     return this.companiesService.findAll(+currentPage, +limit, queryString);
   }
 
+  @ResponseMessage('fetch a company by id')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companiesService.findOne(+id);
+  findOne(
+    @Param('id')
+    id: string,
+  ) {
+    return this.companiesService.findOne(id);
   }
 
   @Patch(':id')

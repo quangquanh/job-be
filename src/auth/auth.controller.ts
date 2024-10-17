@@ -2,16 +2,20 @@ import {
   Controller,
   Post,
   UseGuards,
-  Request,
   Get,
   Body,
+  Res,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
-import { Public, ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { RegisterUserDto } from 'src/users/dto/create-user.dto';
+import { Request, Response } from 'express';
+import { IUser } from 'src/users/user.interface';
 
-@Controller('auth') //  route /
+@Controller('auth')
+//  route //
 export class AuthController {
   constructor(private authService: AuthService) {}
 
@@ -19,9 +23,10 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Public()
+  @ResponseMessage('User Login')
   @Post('/login')
-  handleLogin(@Request() req) {
-    return this.authService.login(req.user);
+  handleLogin(@Req() req, @Res({ passthrough: true }) response: Response) {
+    return this.authService.login(req.user, response);
   }
 
   // đăng ký
@@ -33,7 +38,33 @@ export class AuthController {
     return this.authService.register(registerUserDto);
   }
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Req() req) {
     return req.user;
+  }
+
+  @ResponseMessage('get user information')
+  @Get('/account')
+  handleGetAccount(@User() user: IUser) {
+    return { user };
+  }
+
+  @ResponseMessage('"Get User by refresh token')
+  @Get('/refresh')
+  handleRefreshToken(
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const refreshToken = request.cookies['refresh_token'];
+    return this.authService.processRefreshToken(refreshToken, response);
+  }
+
+  //log out
+  @ResponseMessage('Logout User')
+  @Post('/logout')
+  handleLogout(
+    @User() user: IUser,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return this.authService.logout(user, response);
   }
 }
