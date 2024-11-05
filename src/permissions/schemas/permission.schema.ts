@@ -1,40 +1,22 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Company } from 'src/companies/schemas/company.schema';
-import { Job } from 'src/jobs/schemas/job.schema';
 
-export type ResumeDocument = HydratedDocument<Resume>;
+export type PermissionDocument = HydratedDocument<Permission>;
 
 @Schema({ timestamps: true })
-export class Resume {
+export class Permission {
   // Thông tin riêng của module
   @Prop()
-  email: string;
+  name: string;
 
   @Prop()
-  userId: mongoose.Schema.Types.ObjectId;
+  apiPath: string;
 
   @Prop()
-  url: string;
+  method: string;
 
   @Prop()
-  status: string;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  companyId: mongoose.Schema.Types.ObjectId;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Job.name })
-  jobId: mongoose.Schema.Types.ObjectId;
-
-  @Prop({ type: mongoose.Schema.Types.Array })
-  history: {
-    status: string;
-    updateAt: Date;
-    updatedBy: {
-      _id: mongoose.Schema.Types.ObjectId;
-      email: string;
-    };
-  }[];
+  module: string;
 
   //   Các trường thông tin mặc định
   @Prop()
@@ -70,4 +52,4 @@ export class Resume {
   };
 }
 
-export const ResumeSchema = SchemaFactory.createForClass(Resume);
+export const PermissionSchema = SchemaFactory.createForClass(Permission);
