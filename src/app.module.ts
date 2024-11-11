@@ -12,10 +12,10 @@ import { FilesModule } from './files/files.module';
 import { ResumesModule } from './resumes/resumes.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { RolesModule } from './roles/roles.module';
+import { DatabasesModule } from './databases/databases.module';
 
 @Module({
   imports: [
-    // MongooseModule.forRoot('mongodb+srv://hoidanit:Z9bUEB7sNoatKG0j@cluster0.ls1fl27.mongodb.net/'),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
@@ -40,6 +40,7 @@ import { RolesModule } from './roles/roles.module';
     ResumesModule,
     PermissionsModule,
     RolesModule,
+    DatabasesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

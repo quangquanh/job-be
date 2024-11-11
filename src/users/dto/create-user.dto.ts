@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsMongoId,
   IsNotEmpty,
   IsNotEmptyObject,
   IsObject,
@@ -35,8 +36,9 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Giới tính không được để trống' })
   address: string;
 
-  @IsNotEmpty({ message: 'Role không được để trống' })
-  role: string;
+  @IsNotEmpty({ message: 'Role có định dạng là mongoose ID' })
+  @IsMongoId()
+  role: mongoose.Schema.Types.ObjectId;
 
   @IsNotEmpty({ message: 'Công ty không được để trống' })
   @IsNotEmptyObject()

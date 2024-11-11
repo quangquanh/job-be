@@ -13,28 +13,18 @@ import { error } from 'console';
 export class PermissionsService {
   constructor(
     @InjectModel(Permission.name)
-    private PermissionModel: SoftDeleteModel<PermissionDocument>,
+    private permissionModel: SoftDeleteModel<PermissionDocument>,
   ) {}
   async create(createPermissionDto: CreatePermissionDto, user: IUser) {
     const { name, apiPath, method, module } = createPermissionDto;
-    // xử lý logic xem đã trùng apiPath với method chưa bằng hàm findOne
-    const isExist: boolean = await this.PermissionModel.findOne({
+
+    const newCreatedJob = await this.permissionModel.create({
+      name,
       apiPath,
       method,
+      module,
     });
-    if (isExist) {
-      const newCreatedPermission = await this.PermissionModel.create({
-        name,
-        apiPath,
-        method,
-        module,
-        createdBy: {
-          _id: user._id,
-          email: user.email,
-        },
-      });
-      return newCreatedPermission;
-    }
+    return newCreatedJob;
   }
 
   async update(
@@ -42,7 +32,7 @@ export class PermissionsService {
     updatePermissionDto: UpdatePermissionDto,
     user: IUser,
   ) {
-    return await this.PermissionModel.updateOne(
+    return await this.permissionModel.updateOne(
       { _id: id },
       {
         ...updatePermissionDto,
@@ -62,9 +52,10 @@ export class PermissionsService {
 
     const offset = (+currentPage - 1) * +limit;
     const defaultLimit = +limit ? +limit : 10;
-    const totalItems = (await this.PermissionModel.find(filter)).length;
+    const totalItems = (await this.permissionModel.find(filter)).length;
     const totalPages = Math.ceil(totalItems / defaultLimit);
-    const result = await this.PermissionModel.find(filter)
+    const result = await this.permissionModel
+      .find(filter)
       .skip(offset)
       .limit(defaultLimit)
       .sort(sort as any)
@@ -86,14 +77,14 @@ export class PermissionsService {
       throw new BadRequestException(`can't find this Permission with ${id}`);
     }
 
-    return this.PermissionModel.findOne({
+    return this.permissionModel.findById({
       _id: id,
     });
   }
 
   async remove(id: string, user: IUser) {
-    if (!mongoose.Types.ObjectId.isValid(id)) return 'Công việc không tồn tại';
-    await this.PermissionModel.updateOne(
+    if (!mongoose.Types.ObjectId.isValid(id)) return 'permission không tồn tại';
+    await this.permissionModel.updateOne(
       {
         _id: id,
       },
@@ -104,7 +95,7 @@ export class PermissionsService {
         },
       },
     );
-    return this.PermissionModel.softDelete({
+    return this.permissionModel.softDelete({
       _id: id,
     });
   }

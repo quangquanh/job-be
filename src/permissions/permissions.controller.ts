@@ -14,23 +14,22 @@ import { CreatePermissionDto } from './dto/create-Permission.dto';
 import { IUser } from 'src/users/user.interface';
 import { UpdatePermissionDto } from './dto/update-Permission.dto';
 
-@Controller('Permissions') // => /Permissions
+@Controller('permissions') // => /Permissions
 export class PermissionsController {
-  constructor(private readonly PermissionsService: PermissionsService) {}
+  constructor(private readonly permissionsService: PermissionsService) {}
 
-  @ResponseMessage('Create a Permission')
+  @ResponseMessage('Create a new Job')
   @Post()
   async create(
     @Body() createPermissionDto: CreatePermissionDto,
     @User() user: IUser,
   ) {
-    const newCreatedPermission = await this.PermissionsService.create(
+    const newCreatedPermission = await this.permissionsService.create(
       createPermissionDto,
       user,
     );
     return {
       _id: newCreatedPermission._id,
-
       createdAt: newCreatedPermission.createdAt,
     };
   }
@@ -43,14 +42,14 @@ export class PermissionsController {
     @Body() updatePermissionDto: UpdatePermissionDto,
     @User() user: IUser,
   ) {
-    return this.PermissionsService.update(id, updatePermissionDto, user);
+    return this.permissionsService.update(id, updatePermissionDto, user);
   }
 
   // delete a Permission
   @ResponseMessage('Delete a Permission')
   @Delete(':id')
   remove(@Param('id') id: string, @User() user: IUser) {
-    return this.PermissionsService.remove(id, user);
+    return this.permissionsService.remove(id, user);
   }
 
   // fetch a Permission by id
@@ -62,7 +61,7 @@ export class PermissionsController {
     @Param('id')
     id: string,
   ) {
-    return this.PermissionsService.findOne(id);
+    return this.permissionsService.findOne(id);
   }
 
   // fetch Permission with paginate
@@ -74,6 +73,6 @@ export class PermissionsController {
     @Query('pageSize') limit: string,
     @Query() queryString: string,
   ) {
-    return this.PermissionsService.findAll(+currentPage, +limit, queryString);
+    return this.permissionsService.findAll(+currentPage, +limit, queryString);
   }
 }
