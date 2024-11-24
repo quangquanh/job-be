@@ -16,7 +16,7 @@ export class Role {
   @Prop()
   isActive: boolean;
 
-  @Prop({ type: [mongoose.Schema.Types.Array], ref: Permission.name })
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Permission.name })
   permissions: Permission[];
 
   //   Các trường thông tin mặc định

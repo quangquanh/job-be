@@ -9,12 +9,17 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IsEmail } from 'class-validator';
 import { IUser } from './user.interface';
 import aqp from 'api-query-params';
+import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
+import { USER_ROLE } from 'src/databases/sample';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name)
     private userModel: SoftDeleteModel<UserDocument>,
+
+    @InjectModel(Role.name)
+    private roleModel: SoftDeleteModel<RoleDocument>,
   ) {}
 
   getHashPassword = (password: string) => {
@@ -62,6 +67,10 @@ export class UsersService {
         `Email : ${email} đã tồn tại, vui lòng sử dụng email khác`,
       );
     }
+
+    // fetch user role
+
+    const userRole = await this.roleModel.findOne({ name: USER_ROLE });
     const hashPassword = this.getHashPassword(password);
     const newRegister = await this.userModel.create({
       name,
@@ -70,7 +79,7 @@ export class UsersService {
       age,
       gender,
       address,
-      role: 'USER',
+      role: userRole?._id,
     });
     return newRegister;
   }
@@ -120,7 +129,7 @@ export class UsersService {
       .findOne({
         email: username,
       })
-      .populate({ path: 'role', select: { name: 1, permissions: 1 } });
+      .populate({ path: 'role', select: { name: 1 } });
   }
 
   isValidPassword(password: string, hash: string) {
@@ -144,7 +153,7 @@ export class UsersService {
     if (!mongoose.Types.ObjectId.isValid(id)) return `Người dùng không tồn tại`;
     // không cho xóa tài khoản admin
     const foundedUser: IUser = await this.userModel.findById(id);
-    if (foundedUser.email === 'ducthanhkhanhly@gmail.com') {
+    if (foundedUser.email === 'admin@gmail.com') {
       throw new BadRequestException('Không thể xóa tài khoản admin');
     }
     await this.userModel.updateOne(
@@ -175,8 +184,13 @@ export class UsersService {
   };
 
   async findUserByRefreshToken(refreshToken: string) {
-    return await this.userModel.findOne({
-      refreshToken,
-    });
+    return await this.userModel
+      .findOne({
+        refreshToken,
+      })
+      .populate({
+        path: 'role',
+        select: { name: 1 },
+      });
   }
 }

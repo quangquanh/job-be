@@ -10,6 +10,7 @@ import { error } from 'console';
 import { Role, RoleDocument } from './schemas/role.schema';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { ADMIN_ROLE } from 'src/databases/sample';
 
 @Injectable()
 export class RolesService {
@@ -27,14 +28,15 @@ export class RolesService {
       description,
       isActive,
       permissions,
+      createdBy: {
+        _id: user._id,
+        email: user.email,
+      },
     });
     return newCreatedRole;
   }
 
   async update(id: string, updateRoleDto: UpdateRoleDto, user: IUser) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      throw new BadRequestException(`can't find this role with ${id}`);
-    }
     return await this.roleModel.updateOne(
       { _id: id },
       {
@@ -82,7 +84,7 @@ export class RolesService {
 
     return (await this.roleModel.findById(id)).populate({
       path: 'permissions',
-      select: { id: 1, apiPath: 1, name: 1, method: 1, module: 1 },
+      select: { _id: 1, apiPath: 1, name: 1, method: 1, module: 1 },
     });
   }
 
@@ -90,7 +92,7 @@ export class RolesService {
     if (!mongoose.Types.ObjectId.isValid(id)) return 'Công việc không tồn tại';
     // không cho xóa role admin
     const foundedRole = await this.roleModel.findById(id);
-    if (foundedRole.name === 'ADMIN') {
+    if (foundedRole.name === ADMIN_ROLE) {
       throw new BadRequestException('Không thể xóa vai trò admin');
     }
     await this.roleModel.updateOne(

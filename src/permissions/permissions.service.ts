@@ -8,6 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import aqp from 'api-query-params';
 import { error } from 'console';
+import { emitWarning } from 'process';
 
 @Injectable()
 export class PermissionsService {
@@ -17,14 +18,21 @@ export class PermissionsService {
   ) {}
   async create(createPermissionDto: CreatePermissionDto, user: IUser) {
     const { name, apiPath, method, module } = createPermissionDto;
-
-    const newCreatedJob = await this.permissionModel.create({
+    const isExist = await this.permissionModel.findOne({ apiPath, method });
+    if (isExist) {
+      throw new BadRequestException('Permission is exist');
+    }
+    const newCreatedPermission = await this.permissionModel.create({
       name,
       apiPath,
       method,
       module,
+      createdBy: {
+        _id: user._id,
+        email: user.email,
+      },
     });
-    return newCreatedJob;
+    return newCreatedPermission;
   }
 
   async update(
@@ -32,6 +40,9 @@ export class PermissionsService {
     updatePermissionDto: UpdatePermissionDto,
     user: IUser,
   ) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('not found permission');
+    }
     return await this.permissionModel.updateOne(
       { _id: id },
       {

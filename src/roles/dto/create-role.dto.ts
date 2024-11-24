@@ -22,7 +22,7 @@ export class CreateRoleDto {
   isActive: boolean;
 
   @IsNotEmpty({ message: 'Permission không được để trống' })
-  @IsArray()
   @IsMongoId({ each: true })
+  @IsArray({ message: 'permissions có định dang là mảng các object' })
   permissions: mongoose.Schema.Types.ObjectId[];
 }
