@@ -153,7 +153,7 @@ export class UsersService {
     if (!mongoose.Types.ObjectId.isValid(id)) return `Người dùng không tồn tại`;
     // không cho xóa tài khoản admin
     const foundedUser: IUser = await this.userModel.findById(id);
-    if (foundedUser.email === 'admin@gmail.com') {
+    if (foundedUser && foundedUser.email === 'admin@gmail.com') {
       throw new BadRequestException('Không thể xóa tài khoản admin');
     }
     await this.userModel.updateOne(
