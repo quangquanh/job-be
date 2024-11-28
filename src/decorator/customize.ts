@@ -13,7 +13,7 @@ export const ResponseMessage = (message: string) =>
   SetMetadata(RESPONSE_MESSAGE, message);
 
 export const IS_PUBLIC_PERMISSION = 'isPublicPermission';
-export const Skip_check_permission = () =>
+export const SkipCheckPermission = () =>
   SetMetadata(IS_PUBLIC_PERMISSION, true);
 
 export const User = createParamDecorator(

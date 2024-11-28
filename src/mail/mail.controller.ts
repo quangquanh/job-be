@@ -11,6 +11,7 @@ import {
 import { Job, JobDocument } from 'src/jobs/schemas/job.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Controller('mail')
 export class MailController {
@@ -24,6 +25,8 @@ export class MailController {
     @InjectModel(Job.name)
     private jobModel: SoftDeleteModel<JobDocument>,
   ) {}
+
+  @Cron('0 0 8 * * 0') // 8:00 every sunday
   @Get()
   @Public()
   @ResponseMessage('Test email')

@@ -32,13 +32,10 @@ export class SubscribersService {
     return newCreatedSubscriber;
   }
 
-  async update(
-    id: string,
-    updateSubscriberDto: UpdateSubscriberDto,
-    user: IUser,
-  ) {
+  async update(updateSubscriberDto: UpdateSubscriberDto, user: IUser) {
     return await this.subscriberModel.updateOne(
-      { _id: id },
+      // tim theo email
+      { email: user.email },
       {
         ...updateSubscriberDto,
         updatedBy: {
@@ -46,7 +43,16 @@ export class SubscribersService {
           email: user.email,
         },
       },
+      // sử dụng upsert : nếu bản ghi đã tồn tại, update, nếu bản ghi chưa tồn tại : tạo mới
+      { upsert: true },
     );
+  }
+
+  // get subscriber email
+
+  async getSkills(user: IUser) {
+    const { email } = user;
+    return await this.subscriberModel.findOne({ email }, { skills: 1 });
   }
 
   async findAll(currentPage: number, limit: number, queryString: string) {
