@@ -13,7 +13,9 @@ import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { CreatePermissionDto } from './dto/create-Permission.dto';
 import { IUser } from 'src/users/user.interface';
 import { UpdatePermissionDto } from './dto/update-Permission.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('permissions')
 @Controller('permissions') // => /Permissions
 export class PermissionsController {
   constructor(private readonly permissionsService: PermissionsService) {}

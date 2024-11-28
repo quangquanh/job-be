@@ -14,7 +14,9 @@ import { CreateResumeDto } from './dto/create-resume.dto';
 import { IUser } from 'src/users/user.interface';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { use } from 'passport';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('resumes')
 @Controller('resumes') // => /Jobs
 export class ResumesController {
   constructor(private readonly resumesService: ResumesService) {}

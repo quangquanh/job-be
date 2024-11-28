@@ -19,7 +19,9 @@ import {
 } from 'src/decorator/customize';
 import { UpdateSubscriberDto } from './dto/update-subscriber.dto';
 import { response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('subscribers')
 @Controller('subscribers') // => /subscribers
 export class SubscribersController {
   constructor(private readonly subscribersService: SubscribersService) {}
