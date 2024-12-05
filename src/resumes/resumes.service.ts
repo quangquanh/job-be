@@ -16,11 +16,12 @@ export class ResumesService {
   ) {}
   async create(createResumeDto: CreateResumeDto, user: IUser) {
     const { url, companyId, jobId } = createResumeDto;
+    const { email, _id } = user;
 
     const newCreatedResume = await this.resumeModel.create({
       url,
       companyId,
-      userId: user._id,
+      userId: _id,
       jobId,
       status: 'PENDING',
       history: [
@@ -30,8 +31,8 @@ export class ResumesService {
           // phân biệt updatedAt : Date và updated: new Date() : Trong đoạn mã của bạn, updatedAt: new Date() được sử dụng để tạo ra một đối tượng Date mới đại diện cho thời gian hiện tại, tại thời điểm lệnh đó được thực thi. Đây là cách để đảm bảo rằng giá trị updatedAt chứa thời gian cụ thể khi sự kiện cập nhật xảy ra.
           // Nếu bạn chỉ sử dụng Date, điều này sẽ không hoạt động vì Date chỉ là một lớp hoặc kiểu dữ liệu trong JavaScript, và nó cần được khởi tạo (tạo đối tượng cụ thể) bằng cách gọi new Date() để lấy thời gian hiện tại.
           updatedBy: {
-            _id: user._id,
-            email: user.email,
+            _id: _id,
+            email: email,
           },
         },
       ],
