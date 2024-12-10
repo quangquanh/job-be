@@ -47,7 +47,7 @@ export class UsersService {
       age,
       gender,
       address,
-      role: 'USER',
+      role,
       company,
       createdBy: {
         _id: user._id,
