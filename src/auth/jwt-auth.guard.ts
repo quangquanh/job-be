@@ -53,6 +53,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         targetEndpoint === permission.apiPath,
     );
     if (targetEndpoint.startsWith('/api/v1/auth')) isExist = true;
+    if (targetEndpoint.startsWith('/api/v1/users/change-password'))
+      isExist = true;
+    if (targetEndpoint.startsWith('/api/v1/users') && targetMethod == 'PATCH')
+      isExist = true;
     if (!isExist && !isSkipPermission) {
       throw new ForbiddenException('Bạn không có quyền truy cập endpoint này ');
     }

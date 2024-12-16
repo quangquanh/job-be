@@ -10,7 +10,11 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
-import { RegisterUserDto, UserLoginDto } from 'src/users/dto/create-user.dto';
+import {
+  ForgotPasswordDto,
+  RegisterUserDto,
+  UserLoginDto,
+} from 'src/users/dto/create-user.dto';
 import { Request, Response } from 'express';
 import { IUser } from 'src/users/user.interface';
 import { RolesService } from 'src/roles/roles.service';
@@ -46,9 +50,22 @@ export class AuthController {
   handleRegister(@Body() registerUserDto: RegisterUserDto) {
     return this.authService.register(registerUserDto);
   }
+
+  @Public()
+  @ResponseMessage('Forgot password successfully !')
+  @Post('/forgot-password')
+  forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto.email);
+  }
+
   @Get('profile')
   getProfile(@Req() req) {
     return req.user;
+  }
+
+  @Get('user-info')
+  getUserInfo(@Req() req) {
+    return this.authService.getProfile(req.user._id);
   }
 
   @ResponseMessage('get user information')

@@ -45,6 +45,10 @@ export class AuthService {
     return null;
   }
 
+  async getProfile(id: string) {
+    return await this.usersService.findOne(id);
+  }
+
   async login(user: IUser, response: Response) {
     const { _id, name, email, role, permissions } = user;
     const payload = {
@@ -158,4 +162,8 @@ export class AuthService {
     response.clearCookie('refresh_token');
     return 'Đăng xuất thành công';
   };
+
+  async forgotPassword(email: string) {
+    return await this.usersService.forgotPassword(email);
+  }
 }

@@ -15,6 +15,7 @@ import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { IUser } from './user.interface';
 import { use } from 'passport';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @ApiTags('users')
 @Controller('users') // => /users
@@ -29,6 +30,12 @@ export class UsersController {
       _id: newCreatedUser._id,
       createdAt: newCreatedUser.createdAt,
     };
+  }
+
+  @ResponseMessage('Change password')
+  @Patch('change-password')
+  async changePassword(@Body() data: UpdatePasswordDto, @User() user: IUser) {
+    return this.usersService.changePassword(user._id, data);
   }
 
   @ResponseMessage('Fetch user with paginate')

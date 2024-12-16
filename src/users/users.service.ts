@@ -11,6 +11,8 @@ import { IUser } from './user.interface';
 import aqp from 'api-query-params';
 import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
 import { USER_ROLE } from 'src/databases/sample';
+import { UpdatePasswordDto } from './dto/update-password.dto';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +22,7 @@ export class UsersService {
 
     @InjectModel(Role.name)
     private roleModel: SoftDeleteModel<RoleDocument>,
+    private mailerService: MailerService,
   ) {}
 
   getHashPassword = (password: string) => {
@@ -192,5 +195,47 @@ export class UsersService {
         path: 'role',
         select: { name: 1 },
       });
+  }
+
+  async changePassword(id: string, data: UpdatePasswordDto) {
+    const user = await this.userModel.findById(id);
+    if (!user) throw new BadRequestException('user not found');
+    if (!compareSync(data.oldPassword, user.password)) {
+      throw new BadRequestException('old password not match');
+    }
+    return await this.userModel.updateOne(
+      { _id: id },
+      { password: this.getHashPassword(data.newPassword) },
+    );
+  }
+
+  async forgotPassword(email: string) {
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      throw new BadRequestException('user not found');
+    }
+    const newPassword = Math.floor(100000 + Math.random() * 900000).toString();
+    console.log(newPassword);
+    await this.userModel.updateOne(
+      { _id: user._id },
+      { password: this.getHashPassword(newPassword) },
+    );
+    console.log('success');
+    await this.mailerService.sendMail({
+      to: email,
+      from: '"No reply" <noreply@example.com>', // override default from
+      subject: 'your new pasword',
+      html: `<p> Hello, you just pressed forgot password, your new password is ${newPassword} . Please do not share with anyone
+ </p>`,
+      // template: 'new-job', // template body content
+      // interface của sendMail có trường là context , trường này dùng để truyền động biến vào trong file hbs
+      //
+      // context: {
+      //   receiver: subs.name,
+      //   jobs: jobsForSubscriber,
+      //   website: website_url,
+      // },
+    });
+    return { success: true };
   }
 }
