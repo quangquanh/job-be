@@ -13,4 +13,5 @@ export interface IUser {
     method: string;
     module: string;
   };
+  company:any
 }
