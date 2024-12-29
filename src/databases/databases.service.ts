@@ -6,7 +6,7 @@ import { Job, JobDocument } from 'src/jobs/schemas/job.schema';
 import {
   Permission,
   PermissionDocument,
-} from 'src/permissions/schemas/Permission.schema';
+} from 'src/permissions/schemas/permission.schema';
 import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
 import { User, UserDocument } from 'src/users/schemas/user.schema';
 
