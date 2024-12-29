@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
-import { CreatePermissionDto } from './dto/create-Permission.dto';
+import { CreatePermissionDto } from './dto/create-permission.dto';
 import { IUser } from 'src/users/user.interface';
-import { UpdatePermissionDto } from './dto/update-Permission.dto';
+import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('permissions')
