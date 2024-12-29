@@ -67,6 +67,8 @@ export class AuthService {
     // set refresh token as cookies
     response.cookie('refresh_token', refreshToken, {
       httpOnly: true,
+      secure: false, // Chỉ bật nếu chạy HTTPS
+      sameSite: 'lax',
       maxAge: ms(this.configService.get<string>('JWT_REFRESH_EXPIRE')) * 1000,
     });
     return {
@@ -77,7 +79,7 @@ export class AuthService {
         email,
         role,
         permissions,
-        company
+        company,
       },
     };
   }
