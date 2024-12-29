@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { ResumesService } from './Resumes.service';
+import { ResumesService } from './resumes.service';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { IUser } from 'src/users/user.interface';

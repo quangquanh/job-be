@@ -8,7 +8,7 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { PermissionsService } from './Permissions.service';
+import { PermissionsService } from './permissions.service';
 import { Public, ResponseMessage, User } from 'src/decorator/customize';
 import { CreatePermissionDto } from './dto/create-Permission.dto';
 import { IUser } from 'src/users/user.interface';
