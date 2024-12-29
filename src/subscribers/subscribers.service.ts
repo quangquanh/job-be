@@ -6,7 +6,7 @@ import aqp from 'api-query-params';
 import { error } from 'console';
 import { Subscriber, SubscriberDocument } from './schemas/subscriber.schema';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import { UpdateSubscriberDto } from './dto/update-subscriber.dto';
 
 @Injectable()

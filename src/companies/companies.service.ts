@@ -4,7 +4,7 @@ import { UpdateCompanyDto } from './dto/update-company.dto';
 import { Company, CompanyDocument } from './schemas/company.schema';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import { emitWarning } from 'process';
 import mongoose from 'mongoose';
 import aqp from 'api-query-params';

@@ -9,9 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
-import { Public, ResponseMessage, User } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from '../decorator/customize';
 import { CreatePermissionDto } from './dto/create-permission.dto';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 import { ApiTags } from '@nestjs/swagger';
 

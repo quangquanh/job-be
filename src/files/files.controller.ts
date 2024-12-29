@@ -16,9 +16,9 @@ import { FilesService } from './files.service';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Public, ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage } from '../decorator/customize';
 import { ApiTags } from '@nestjs/swagger';
-import { HttpExceptionFilter } from 'src/core/http-exception.filter.ts';
+import { HttpExceptionFilter } from '../core/http-exception.filter.ts';
 
 @ApiTags('files')
 @Controller('files')

@@ -9,9 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
-import { Public, ResponseMessage, User } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from '../decorator/customize';
 import { CreateJobDto } from './dto/create-job.dto';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { ApiTags } from '@nestjs/swagger';
 

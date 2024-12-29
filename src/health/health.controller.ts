@@ -4,7 +4,7 @@ import {
   HealthCheckService,
   MongooseHealthIndicator,
 } from '@nestjs/terminus';
-import { Public } from 'src/decorator/customize';
+import { Public } from '../decorator/customize';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('health')

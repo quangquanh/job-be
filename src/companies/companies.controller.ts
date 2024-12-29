@@ -12,8 +12,8 @@ import {
 import { CompaniesService } from './companies.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { Public, ResponseMessage, User } from 'src/decorator/customize';
-import { IUser } from 'src/users/user.interface';
+import { Public, ResponseMessage, User } from '../decorator/customize';
+import { IUser } from '../users/user.interface';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('companies')

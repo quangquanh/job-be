@@ -9,8 +9,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Subscriber,
   SubscriberSchema,
-} from 'src/subscribers/schemas/subscriber.schema';
-import { Job, JobSchema } from 'src/jobs/schemas/job.schema';
+} from '../subscribers/schemas/subscriber.schema';
+import { Job, JobSchema } from '../jobs/schemas/job.schema';
 
 @Module({
   imports: [

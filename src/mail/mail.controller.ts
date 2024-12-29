@@ -1,14 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
 import { MailService } from './mail.service';
-import { Public, ResponseMessage } from 'src/decorator/customize';
+import { Public, ResponseMessage } from '../decorator/customize';
 import { MailerService } from '@nestjs-modules/mailer';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import {
   Subscriber,
   SubscriberDocument,
   SubscriberSchema,
-} from 'src/subscribers/schemas/subscriber.schema';
-import { Job, JobDocument } from 'src/jobs/schemas/job.schema';
+} from '../subscribers/schemas/subscriber.schema';
+import { Job, JobDocument } from '../jobs/schemas/job.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';

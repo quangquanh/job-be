@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,7 +10,7 @@ import { error } from 'console';
 import { Role, RoleDocument } from './schemas/role.schema';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
-import { ADMIN_ROLE } from 'src/databases/sample';
+import { ADMIN_ROLE } from '../databases/sample';
 
 @Injectable()
 export class RolesService {

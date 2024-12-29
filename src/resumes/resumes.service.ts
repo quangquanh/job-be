@@ -4,7 +4,7 @@ import { UpdateResumeDto } from './dto/update-resume.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Resume, ResumeDocument } from './schemas/resume.schema';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import mongoose from 'mongoose';
 import aqp from 'api-query-params';
 

@@ -9,8 +9,8 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { IsEmail } from 'class-validator';
 import { IUser } from './user.interface';
 import aqp from 'api-query-params';
-import { Role, RoleDocument } from 'src/roles/schemas/role.schema';
-import { USER_ROLE } from 'src/databases/sample';
+import { Role, RoleDocument } from '../roles/schemas/role.schema';
+import { USER_ROLE } from '../databases/sample';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 

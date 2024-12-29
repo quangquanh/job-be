@@ -9,15 +9,15 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
-import { Public, ResponseMessage, User } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from '../decorator/customize';
 import {
   ForgotPasswordDto,
   RegisterUserDto,
   UserLoginDto,
-} from 'src/users/dto/create-user.dto';
+} from '../users/dto/create-user.dto';
 import { Request, Response } from 'express';
-import { IUser } from 'src/users/user.interface';
-import { RolesService } from 'src/roles/roles.service';
+import { IUser } from '../users/user.interface';
+import { RolesService } from '../roles/roles.service';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 

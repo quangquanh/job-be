@@ -10,13 +10,13 @@ import {
 } from '@nestjs/common';
 import { SubscribersService } from './subscribers.service';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import {
   Public,
   ResponseMessage,
   SkipCheckPermission,
   User,
-} from 'src/decorator/customize';
+} from '../decorator/customize';
 import { UpdateSubscriberDto } from './dto/update-subscriber.dto';
 import { response } from 'express';
 import { ApiTags } from '@nestjs/swagger';

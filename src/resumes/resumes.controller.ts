@@ -9,9 +9,9 @@ import {
   Query,
 } from '@nestjs/common';
 import { ResumesService } from './resumes.service';
-import { Public, ResponseMessage, User } from 'src/decorator/customize';
+import { Public, ResponseMessage, User } from '../decorator/customize';
 import { CreateResumeDto } from './dto/create-resume.dto';
-import { IUser } from 'src/users/user.interface';
+import { IUser } from '../users/user.interface';
 import { UpdateResumeDto } from './dto/update-resume.dto';
 import { use } from 'passport';
 import { ApiTags } from '@nestjs/swagger';

@@ -5,10 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import {
   Permission,
   PermissionSchema,
-} from 'src/permissions/schemas/permission.schema';
-import { User, UserSchema } from 'src/users/schemas/user.schema';
-import { Role, RoleSchema } from 'src/roles/schemas/role.schema';
-import { UsersService } from 'src/users/users.service';
+} from '../permissions/schemas/permission.schema';
+import { User, UserSchema } from '../users/schemas/user.schema';
+import { Role, RoleSchema } from '../roles/schemas/role.schema';
+import { UsersService } from '../users/users.service';
 
 @Module({
   controllers: [DatabasesController],
