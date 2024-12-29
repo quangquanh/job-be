@@ -135,6 +135,8 @@ export class AuthService {
         // set refreshtoken as cokies
         response.cookie('refresh_token', refreshToken, {
           httpOnly: true,
+          secure: false, // Chỉ bật nếu chạy HTTPS
+          sameSite: 'lax',
           maxAge:
             ms(this.configService.get<string>('JWT_REFRESH_EXPIRE')) * 1000,
         });
