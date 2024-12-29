@@ -38,7 +38,7 @@ async function bootstrap() {
   // config CORS
 
   app.enableCors({
-    origin: true,
+    origin: ['http://localhost:3000', 'https://job-ten-mu.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     credentials: true,
