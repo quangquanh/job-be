@@ -52,8 +52,19 @@ async function bootstrap() {
   });
 
   // config helmet
-  app.use(helmet());
-
+  app.use(
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'", 'https://job-ten-mu.vercel.app'],
+          scriptSrc: ["'self'", "'unsafe-inline'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", 'data:', 'https://job-ten-mu.vercel.app'],
+        },
+      },
+    }),
+  );
   const config = new DocumentBuilder()
     .setTitle('Nestjs Finding Job App')
     .setDescription('All APIs')
